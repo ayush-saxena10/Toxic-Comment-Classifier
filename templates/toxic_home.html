@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Toxic Comment Classifier</title>
+{% endblock %}
+
+{% block body %}
+<h1>Toxic Comment Classification</h1>
+
+    <hr>
+    <h2>Enter Text</h2>
+    <form action='/toxic classifier' method='POST'>
+        Text: <input type='text' name='text' id='text'>
+        <br>
+        <input type='submit' value='Enter'>
+    </form>
+    <hr>
+    <h3>Toxic Classification</h3>
+    <table style="width:100%">
+        <tr>
+            <th>Category</th>
+            <th>Classification</th>
+            <th>Probability</th>
+        </tr>
+        {% for i, row in post.iterrows() %}
+            <tr>
+                <th>{{ i }}</th>
+                <th>{{ row['category'] }}</th>
+                <th>{{ row['probability'] }}</th>
+            </tr>
+        {% endfor %}
+    
+    </table>
+
+{% endblock %}
