@@ -8,8 +8,7 @@ import re
 import string
 import nltk
 from sklearn.calibration import CalibratedClassifierCV
-nltk.download()
-nltk.download(stopwords)
+nltk.download('stopwords')
 from nltk.corpus import stopwords
 from sklearn.pipeline import Pipeline 
 
