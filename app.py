@@ -118,7 +118,7 @@ def prediction(text):
 
 @app.route("/", methods=['GET'])
 def home():
-    return render_template("index.html",)
+    return render_template("index.html")
 
 @app.route("/toxic classifier", methods=['GET', 'POST'])
 def predict():
