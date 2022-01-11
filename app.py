@@ -14,42 +14,54 @@ from sklearn.pipeline import Pipeline
 app = Flask(__name__)
 
 # Loading the models for each category
-with open(r"D:/ML Projects/Toxic Comment Classifier/model_toxic.pickle", "rb") as f:
-    model_toxic = pickle.load(f)
+model_toxic_f = open('model_toxic.pickle', 'rb')
+model_toxic = pickle.load(model_toxic_f)
+model_toxic_f.close()
 
-with open(r"D:/ML Projects/Toxic Comment Classifier/model_severe.pickle", "rb") as f:
-    model_severe = pickle.load(f)
+model_severe_f = open('model_severe.pickle', 'rb')
+model_severe = pickle.load(model_severe_f)
+model_severe_f.close()
 
-with open(r"D:/ML Projects/Toxic Comment Classifier/model_obscene.pickle", "rb") as f:
-    model_obscene = pickle.load(f)
+model_obscene_f = open('model_obscene.pickle', 'rb')
+model_obscene = pickle.load(model_obscene_f)
+model_obscene_f.close()
 
-with open(r"D:/ML Projects/Toxic Comment Classifier/model_threat.pickle", "rb") as f:
-    model_threat = pickle.load(f)
+model_threat_f = open('model_threat.pickle', 'rb')
+model_threat = pickle.load(model_threat_f)
+model_threat_f.close()
 
-with open(r"D:/ML Projects/Toxic Comment Classifier/model_insult.pickle", "rb") as f:
-    model_insult = pickle.load(f)
+model_insult_f = open('model_insult.pickle', 'rb')
+model_insult = pickle.load(model_insult_f)
+model_insult_f.close()
 
-with open(r"D:/ML Projects/Toxic Comment Classifier/model_ide_hate.pickle", "rb") as f:
-    model_ide_hate = pickle.load(f)
+model_ide_hate_f = open('model_ide_hate.pickle', 'rb')
+model_ide_hate = pickle.load(model_ide_hate_f)
+model_ide_hate_f.close()
 
 # Loading the tfidf files for each category
-with open(r"D:/ML Projects/Toxic Comment Classifier/tfidf_toxic.pickle", "rb") as f:
-    tfidf_toxic = pickle.load(f)
+tfidf_toxic_f = open('tfidf_toxic.pickle', 'rb')
+tfidf_toxic = pickle.load(tfidf_toxic_f)
+tfidf_toxic_f.close()
 
-with open(r"D:/ML Projects/Toxic Comment Classifier/tfidf_severe.pickle", "rb") as f:
-    tfidf_severe = pickle.load(f)
+tfidf_severe_f = open('tfidf_severe.pickle', 'rb')
+tfidf_severe = pickle.load(tfidf_severe_f)
+tfidf_severe_f.close()
 
-with open(r"D:/ML Projects/Toxic Comment Classifier/tfidf_obscene.pickle", "rb") as f:
-    tfidf_obscene = pickle.load(f)
+tfidf_obscene_f = open('tfidf_obscene.pickle', 'rb')
+tfidf_obscene = pickle.load(tfidf_obscene_f)
+tfidf_obscene_f.close()
 
-with open(r"D:/ML Projects/Toxic Comment Classifier/tfidf_threat.pickle", "rb") as f:
-    tfidf_threat = pickle.load(f)
+tfidf_threat_f = open('tfidf_threat.pickle', 'rb')
+tfidf_threat = pickle.load(tfidf_threat_f)
+tfidf_threat_f.close()
 
-with open(r"D:/ML Projects/Toxic Comment Classifier/tfidf_insult.pickle", "rb") as f:
-    tfidf_insult = pickle.load(f)
+tfidf_insult_f = open('tfidf_insult.pickle', 'rb')
+tfidf_insult = pickle.load(tfidf_insult_f)
+tfidf_insult_f.close()
 
-with open(r"D:/ML Projects/Toxic Comment Classifier/tfidf_ide_hate.pickle", "rb") as f:
-    tfidf_ide_hate = pickle.load(f)
+tfidf_ide_hate_f = open('tfidf_ide_hate.pickle', 'rb')
+tfidf_ide_hate = pickle.load(tfidf_ide_hate_f)
+tfidf_ide_hate_f.close()
 
 def comment_cleaner(text):
     
@@ -104,20 +116,19 @@ def prediction(text):
     
     return df
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def home():
-    return render_template("toxic_home.html")
+    return render_template("index.html",)
 
-@app.route("/toxic classifier", methods=['POST'])
-def predict():    
-    
-    input_text = request.form['text']
-    df = prediction(input_text)
-
-    # toxic_category = df['category'].to_dict()['toxic']
-    # prob_toxic = df['probability'].to_dict()['toxic']
-    
-    return render_template('toxic_home.html',post=df)
-
+@app.route("/toxic classifier", methods=['GET', 'POST'])
+def predict():
+    if request.method=='POST':
+        input_text = request.form['text']
+        df = prediction(input_text)
+        
+        return render_template('toxic_home.html', df=df)
+    else:
+        return render_template('toxic_home.html')
+        
 if __name__=='__main__':
     app.run(debug=True)

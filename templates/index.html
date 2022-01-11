@@ -16,18 +16,4 @@
     </form>
     <hr>
     <h3>Toxic Classification</h3>
-    <table style="width:100%">
-        <tr>
-            <th>Category</th>
-            <th>Classification</th>
-            <th>Probability</th>
-        </tr>
-       {% for i, row in df.iterrows() %}   
-        <tr>
-            <td>{{ i }}</td>
-            <td>{{ row['category'] }}</td>
-            <td>{{ row['probability'] }}</td>
-        </tr>
-       {% endfor %}
-    </table>
 {% endblock %}
