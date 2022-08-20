@@ -82,13 +82,12 @@ def comment_cleaner(text):
 def prediction(text):
 
     text = comment_cleaner(text) 
-    text = [text]
-    vector_toxic = tfidf_toxic.transform(text)
-    vector_severe = tfidf_severe.transform(text)
-    vector_obscene = tfidf_obscene.transform(text)
-    vector_insult = tfidf_insult.transform(text)
-    vector_threat = tfidf_threat.transform(text)
-    vector_ide_hate = tfidf_ide_hate.transform(text)
+    vector_toxic = tfidf_toxic.transform([text])
+    vector_severe = tfidf_severe.transform([text])
+    vector_obscene = tfidf_obscene.transform([text])
+    vector_insult = tfidf_insult.transform([text])
+    vector_threat = tfidf_threat.transform([text])
+    vector_ide_hate = tfidf_ide_hate.transform([text])
 
     list_category = ['toxic',
                      'severe_toxic',
